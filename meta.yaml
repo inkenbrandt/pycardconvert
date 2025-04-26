@@ -1,0 +1,40 @@
+{% set name = "pycardconvert" %}
+{% set version = "0.1.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/inkenbrandt/pycardconvert/archive/{{ version }}.tar.gz
+  sha256: 06377e1688328c5f4a56f7c8cda5551d89af68b6585a28dfdb6ec519321d62a5
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python
+    - setuptools >=61.0
+    - pip
+  run:
+    - python
+
+test:
+  imports:
+    - pycardconvert
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  summary: Python Wrapper for Campbell Scientific Card Convert exe, which converts datalogger .dat files to other formats.
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - paul
